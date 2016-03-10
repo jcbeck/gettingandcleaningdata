@@ -1,9 +1,9 @@
 #download data
 library(httr) 
 url <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-file <- "instance.zip"
+file <- "dataset.zip"
 if(!file.exists(file)){
-  print("download")
+  print("projectfile")
   download.file(url, file, method="curl")
 }
 
@@ -71,6 +71,6 @@ activity_labels <- gettables("activity_labels.txt")
 data$activity <- factor(data$activity, levels=activity_labels$V1, labels=activity_labels$V2)
 
 #5) Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
-tidy_data <- ddply(mean_and_std, .(id, activity), .fun=function(x){ colMeans(x[,-c(1:2)]) })
+tidy_data <- ddply(meanandstd, .(id, activity), .fun=function(x){ colMeans(x[,-c(1:2)]) })
 colnames(tidy_data)[-c(1:2)] <- paste(colnames(tidy_data)[-c(1:2)], "_mean", sep="")
 saveresults(tidy_data,"tidy_data")
