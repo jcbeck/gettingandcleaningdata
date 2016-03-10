@@ -74,3 +74,5 @@ data$activity <- factor(data$activity, levels=activity_labels$V1, labels=activit
 tidy_data <- ddply(meanandstd, .(id, activity), .fun=function(x){ colMeans(x[,-c(1:2)]) })
 colnames(tidy_data)[-c(1:2)] <- paste(colnames(tidy_data)[-c(1:2)], "_mean", sep="")
 saveresults(tidy_data,"tidy_data")
+
+write.table(tidy_data, "tidy.data.txt", row.name=FALSE)
